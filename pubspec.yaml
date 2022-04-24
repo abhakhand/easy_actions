@@ -1,0 +1,19 @@
+name: easy_actions
+description: A Flutter package for simple and easy to use buttons
+
+version: 1.0.0
+# publish_to: https://pub.dev
+
+homepage: https://github.com/abhakhand/easy_actions
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^2.4.0
