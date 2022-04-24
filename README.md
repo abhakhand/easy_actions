@@ -7,7 +7,7 @@
 
 A Flutter package for simple and easy to use actions like buttons, checkboxes and switches.
 
-<div><img src="https://github.com/abhakhand/easy_actions/blob/main/assets/display.png" width="200"/></div>
+<div><img src="https://github.com/abhakhand/easy_actions/blob/main/assets/display.png?raw=true" width="200"/></div>
 
 ## Feature
 
