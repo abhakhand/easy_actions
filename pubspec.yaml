@@ -1,8 +1,7 @@
 name: easy_actions
 description: A Flutter package for simple and easy to use buttons, checkboxes and switches.
 
-version: 1.0.1
-# publish_to: https://pub.dev
+version: 1.1.0
 
 homepage: https://github.com/abhakhand/easy_actions
 

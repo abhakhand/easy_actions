@@ -1,43 +1,43 @@
 import 'package:easy_actions/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 
-class EasyElevatedButton extends StatelessWidget {
-  /// [EasyElevatedButton] is a [ElevatedButton] with simple parameters
+class EasyIconButton extends StatelessWidget {
+  /// [EasyIconButton] is a [ElevatedButton] with simple parameters
   /// which makes it easy to style this button.
   ///
-  /// Similar to a [ElevatedButton.icon] button, adding an icon
-  /// is also possible in this button with some extra configurations.
-  ///
   /// ```dart
-  /// EasyElevatedButton(
-  ///  label: 'Hello World!',
+  /// EasyIconButton(
+  ///  icon: Icons.add,
   /// ),
   /// ```
   ///
-  const EasyElevatedButton({
+  const EasyIconButton({
     Key? key,
-    required this.label,
+    this.icon,
+    this.iconSize,
+    this.iconColor,
     this.onPressed,
     this.hapticImpact = HapticImpact.none,
+    this.iconWidget,
     this.enabled = true,
-    this.labelColor,
-    this.labelStyle,
-    this.height,
-    this.width,
+    this.size = 48,
     this.color,
     this.disabledColor,
-    this.icon,
-    this.isTrailingIcon = false,
     this.borderRadius,
     this.isRounded = false,
     this.margin,
-    this.padding,
+    this.padding = const EdgeInsets.all(8),
     this.elevation,
-    this.spaceBetweenChildren,
   }) : super(key: key);
 
-  /// Label for your button
-  final String label;
+  /// Icon for your button
+  final IconData? icon;
+
+  /// Size of the icon
+  final double? iconSize;
+
+  /// Color of the icon
+  final Color? iconColor;
 
   /// Callback for the button clicks
   final VoidCallback? onPressed;
@@ -45,32 +45,20 @@ class EasyElevatedButton extends StatelessWidget {
   /// Haptic feedback on button tap
   final HapticImpact hapticImpact;
 
+  /// Icon for the button
+  final Widget? iconWidget;
+
   /// To enable/disable the button, default is true
   final bool enabled;
 
-  /// Color of the label
-  final Color? labelColor;
-
-  /// [TextStyle] for the label in case the color is not sufficient
-  final TextStyle? labelStyle;
-
-  /// Height of the button
-  final double? height;
-
-  /// Width of the button
-  final double? width;
+  /// Size of the button
+  final double size;
 
   /// Button color, it will not work if the button is disabled
   final Color? color;
 
   /// Disabled button color
   final Color? disabledColor;
-
-  /// Icon for the button
-  final Widget? icon;
-
-  /// Place the icon widget at trailing
-  final bool isTrailingIcon;
 
   /// Border radius for the button, it will not work
   /// if [isRounded] is given
@@ -83,21 +71,18 @@ class EasyElevatedButton extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
 
   /// Button padding
-  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry padding;
 
   /// Elevation of the button
   final double? elevation;
-
-  /// Padding between label and icon
-  final double? spaceBetweenChildren;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: margin ?? EdgeInsets.zero,
       child: SizedBox(
-        height: height,
-        width: width,
+        height: size,
+        width: size,
         child: ElevatedButton(
           onPressed: enabled
               ? () {
@@ -117,32 +102,13 @@ class EasyElevatedButton extends StatelessWidget {
             elevation: elevation,
             padding: padding,
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (icon != null && !isTrailingIcon) ...[
-                icon!,
-                SizedBox(
-                  width: spaceBetweenChildren ?? 4,
+          child: Center(
+            child: iconWidget ??
+                Icon(
+                  icon,
+                  size: iconSize,
+                  color: iconColor,
                 ),
-              ],
-              Flexible(
-                child: Text(
-                  label,
-                  style: labelStyle ??
-                      TextStyle(
-                        color: labelColor,
-                      ),
-                ),
-              ),
-              if (icon != null && isTrailingIcon) ...[
-                SizedBox(
-                  width: spaceBetweenChildren ?? 4,
-                ),
-                icon!,
-              ],
-            ],
           ),
         ),
       ),

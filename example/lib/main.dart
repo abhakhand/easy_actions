@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Easy Buttons Demo',
+      title: 'Easy Actions Demo',
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Easy Buttons',
+          'Easy Actions',
         ),
       ),
       body: Padding(
@@ -154,6 +154,46 @@ class HomePage extends StatelessWidget {
                   isTrailingIcon: true,
                   color: Colors.red,
                   labelColor: Colors.red,
+                  onPressed: () {},
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            const Text(
+              'Icon Buttons',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Wrap(
+              spacing: 12,
+              runSpacing: 12,
+              children: [
+                EasyIconButton(
+                  icon: Icons.add,
+                  onPressed: () {},
+                ),
+                EasyIconButton(
+                  icon: Icons.add,
+                  isRounded: true,
+                  onPressed: () {},
+                ),
+                EasyIconButton(
+                  icon: Icons.add,
+                  elevation: 0,
+                  borderRadius: 2,
+                  onPressed: () {},
+                ),
+                EasyIconButton(
+                  icon: Icons.add,
+                  isRounded: true,
+                  elevation: 12,
                   onPressed: () {},
                 ),
               ],

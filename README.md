@@ -7,12 +7,13 @@
 
 A Flutter package for simple and easy to use actions like buttons, checkboxes and switches.
 
-<div><img src="https://github.com/abhakhand/easy_actions/blob/main/assets/display.png?raw=true" width="200"/></div>
+<div><img src="https://github.com/abhakhand/easy_actions/blob/main/assets/display.jpg?raw=true" width="200"/></div>
 
-## Feature
+## Features
 
 - Elevated Button
 - Outlined Button
+- Icon Button
 
 ## Getting Started
 
@@ -45,6 +46,15 @@ dependencies:
  EasyOutlinedButton(
   label: 'Hello World!',
   isRounded: true,
+  onPressed: () {},
+),
+```
+
+### Icon Button
+
+```dart
+ EasyIconButton(
+  icon: Icons.add,
   onPressed: () {},
 ),
 ```

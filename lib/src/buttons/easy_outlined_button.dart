@@ -1,6 +1,5 @@
 import 'package:easy_actions/src/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class EasyOutlinedButton extends StatelessWidget {
   /// [EasyOutlinedButton] is a [OutlinedButton] with simple parameters
@@ -12,32 +11,38 @@ class EasyOutlinedButton extends StatelessWidget {
   /// ```dart
   /// EasyOutlinedButton(
   ///  label: 'Hello World!',
-  ///  onPressed: () {},
-  /// )
+  /// ),
   /// ```
+  ///
   const EasyOutlinedButton({
     Key? key,
     required this.label,
-    required this.onPressed,
+    this.onPressed,
+    this.hapticImpact = HapticImpact.none,
     this.enabled = true,
     this.labelColor,
     this.labelStyle,
     this.height,
     this.width,
     this.color,
+    this.disabledColor,
     this.icon,
     this.isTrailingIcon = false,
     this.borderRadius,
     this.isRounded = false,
     this.margin,
-    this.haptics = false,
+    this.padding,
+    this.spaceBetweenChildren,
   }) : super(key: key);
 
   /// Label for your button
   final String label;
 
   /// Callback for the button clicks
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
+
+  /// Haptic feedback on button tap
+  final HapticImpact hapticImpact;
 
   /// To enable/disable the button, default is true
   final bool enabled;
@@ -57,24 +62,30 @@ class EasyOutlinedButton extends StatelessWidget {
   /// Button color, it will not work if the button is disabled
   final Color? color;
 
+  /// Disabled button color
+  final Color? disabledColor;
+
   /// Icon for the button
   final Widget? icon;
 
   /// Place the icon widget at trailing
   final bool isTrailingIcon;
 
-  /// Border radius for the button
+  /// Border radius for the button, it will not work
+  /// if [isRounded] is given
   final double? borderRadius;
 
-  /// For completely rounded button, it will not work
-  /// if border radius is given
+  /// For completely rounded button
   final bool isRounded;
 
   /// Button margin, default is [EdgeInsets.zero]
   final EdgeInsetsGeometry? margin;
 
-  /// To enable haptic feedback, default is false
-  final bool haptics;
+  /// Button padding
+  final EdgeInsetsGeometry? padding;
+
+  /// Padding between label and icon
+  final double? spaceBetweenChildren;
 
   @override
   Widget build(BuildContext context) {
@@ -86,20 +97,22 @@ class EasyOutlinedButton extends StatelessWidget {
         child: OutlinedButton(
           onPressed: enabled
               ? () {
-                  if (haptics) {
-                    HapticFeedback.lightImpact();
-                  }
-                  onPressed();
+                  mapHapticImpactToFeedback(hapticImpact);
+                  onPressed?.call();
                 }
               : null,
           style: OutlinedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
-                isRounded ? 100 : borderRadius ?? Utils.mediumBorderRadius,
+                isRounded
+                    ? Utils.roundedRadius
+                    : borderRadius ?? Utils.mediumRadius,
               ),
             ),
             side: BorderSide(
-              color: enabled ? color ?? Colors.grey : Utils.disabledColor,
+              color: enabled
+                  ? color ?? Theme.of(context).primaryColor
+                  : Utils.disabledColor,
             ),
           ),
           child: Row(
@@ -108,8 +121,8 @@ class EasyOutlinedButton extends StatelessWidget {
             children: [
               if (icon != null && !isTrailingIcon) ...[
                 icon!,
-                const SizedBox(
-                  width: 4,
+                SizedBox(
+                  width: spaceBetweenChildren,
                 ),
               ],
               Flexible(
@@ -122,8 +135,8 @@ class EasyOutlinedButton extends StatelessWidget {
                 ),
               ),
               if (icon != null && isTrailingIcon) ...[
-                const SizedBox(
-                  width: 4,
+                SizedBox(
+                  width: spaceBetweenChildren,
                 ),
                 icon!,
               ],
